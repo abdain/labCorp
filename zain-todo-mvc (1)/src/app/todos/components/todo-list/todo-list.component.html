@@ -1,0 +1,15 @@
+<ng-container>
+<ul class="todo-list">
+  <li *ngFor="let task of tasksList | async; index as i" [ngClass]="{completed: task.completed, editing: task.editing}">
+    <div class="view">
+      <input class="toggle" (change)="onCompleteTask(task.id)" [attr.checked]="task.completed" type="checkbox" />
+      <label (dblclick)="onEdit(task.id)">{{task.text}}</label>
+      <button class="destroy" (click)="onClear(task.id)"></button>
+    </div>
+
+    <input type="text" class="edit" [(ngModel)]="task.text" (keyup.enter)="onUpdate(task.id, task.text)" />
+
+  </li>
+</ul>
+<p *ngIf="(tasksList | async).length === 0" class="no-matches">No Matches Found</p>
+</ng-container>
